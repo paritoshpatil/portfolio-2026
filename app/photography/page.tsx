@@ -5,7 +5,7 @@ import TopChrome from "@/components/TopChrome";
 import { photos } from "@/data/content";
 
 export const metadata = {
-  title: "Photography — Alex Mercer",
+  title: "Photography — Paritosh Patil",
 };
 
 export default function Photography() {

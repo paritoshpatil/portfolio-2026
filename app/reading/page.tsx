@@ -4,7 +4,7 @@ import TopChrome from "@/components/TopChrome";
 import { currentlyReading, recentlyFinished, type Book } from "@/data/content";
 
 export const metadata = {
-  title: "Reading — Alex Mercer",
+  title: "Reading — Paritosh Patil",
 };
 
 function Shelf({ heading, books }: { heading: string; books: Book[] }) {

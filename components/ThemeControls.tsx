@@ -41,10 +41,14 @@ function applyAccent(hex: string) {
 }
 
 /**
- * Fixed "tweaks" panel — flips the palette (dark / warm) and picks the
+ * Inline "tweaks" control — flips the palette (dark / warm) and picks the
  * accent. Both write straight to the CSS variables on <html> (and to
  * localStorage), so the whole site retunes live. The pre-paint script in
  * the layout restores the saved choice before first render.
+ *
+ * Rendered inside the top chrome (to the left of the corner text) rather
+ * than as its own edge-pinned panel, so it never fouls the layout on
+ * narrow screens.
  */
 export default function ThemeControls() {
   const [theme, setTheme] = useState<Theme>("dark");
@@ -78,7 +82,7 @@ export default function ThemeControls() {
   };
 
   return (
-    <div className="fixed right-0 top-1/2 z-[60] flex -translate-y-1/2 flex-col items-end gap-4 pr-[clamp(14px,2vw,22px)] font-mono">
+    <div className="pointer-events-auto flex items-center gap-3 font-mono">
       <button
         type="button"
         onClick={toggleTheme}
@@ -86,19 +90,20 @@ export default function ThemeControls() {
         aria-label={`Switch to ${theme === "dark" ? "warm" : "dark"} theme`}
         className="flex items-center gap-2 text-[11px] tracking-[0.14em] text-fd transition-colors hover:text-fs"
       >
-        {/* invisible until mounted to avoid a hydration label mismatch */}
-        <span style={{ opacity: mounted ? 1 : 0 }}>
-          {theme === "warm" ? "WARM" : "DARK"}
+        {/* invisible until mounted to avoid a hydration label mismatch;
+            hidden on phones to keep the top bar from crowding */}
+        <span className="hidden sm:inline" style={{ opacity: mounted ? 1 : 0 }}>
+          {theme === "warm" ? "[WARM]" : "[DARK]"}
         </span>
-        <span
+        {/* <span
           aria-hidden="true"
           className="flex h-[18px] w-[18px] items-center justify-center rounded-full border border-ln text-[10px] leading-none text-fs"
         >
           {theme === "warm" ? "☀" : "☾"}
-        </span>
+        </span> */}
       </button>
 
-      <div className="flex flex-col items-center gap-[10px]">
+      <div className="hidden items-center gap-[10px] sm:flex">
         {ACCENTS.map((a) => {
           const active = a.hex.toLowerCase() === accent.toLowerCase();
           return (

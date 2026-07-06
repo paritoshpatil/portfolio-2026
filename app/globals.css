@@ -84,7 +84,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto; /* Lenis handles smooth scroll */
   cursor: none;
 }
 
@@ -159,9 +159,6 @@ html::-webkit-scrollbar {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
   .reveal {
     opacity: 1;
     transform: none;

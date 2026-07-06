@@ -116,10 +116,10 @@ export default function Home() {
           <Reveal>
             <a
               data-cursor-label="Email ↗"
-              href="mailto:hello@alexmercer.dev"
+              href="mailto:paritoshpatil54321@gmail.com"
               className="inline-block text-[clamp(34px,6vw,76px)] font-normal leading-[1.05] tracking-[-0.02em] text-fs no-underline transition-colors hover:text-ac"
             >
-              hello@alexmercer.dev
+              paritoshpatil54321@gmail.com
             </a>
           </Reveal>
           <Reveal

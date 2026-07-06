@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Cursor from "@/components/Cursor";
-import ThemeControls from "@/components/ThemeControls";
+import SmoothScroll from "@/components/SmoothScroll";
 import "./globals.css";
 
 // Restore the saved theme/accent before first paint (no flash of default).
@@ -15,7 +15,7 @@ r.style.setProperty('--curtext',lum>0.62?'#000':'#fff');}
 }catch(e){}})();`;
 
 export const metadata: Metadata = {
-  title: "Alex Mercer — software engineer · designer",
+  title: "Paritosh Patil — software engineer · designer",
   description:
     "Software engineer with a soft spot for interface design. Indie electronic music, 35mm film, and a stack of books.",
 };
@@ -41,9 +41,10 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <Cursor />
-        <ThemeControls />
-        {children}
+        <SmoothScroll>
+          <Cursor />
+          {children}
+        </SmoothScroll>
       </body>
     </html>
   );

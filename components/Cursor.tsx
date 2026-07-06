@@ -50,8 +50,8 @@ export default function Cursor() {
         txt.style.maxWidth = "0";
         txt.style.opacity = "0";
       } else {
-        cur.style.height = "11px";
-        cur.style.minWidth = "11px";
+        cur.style.height = "14px";
+        cur.style.minWidth = "14px";
         cur.style.padding = "0";
         txt.textContent = "";
         txt.style.maxWidth = "0";
@@ -126,7 +126,7 @@ export default function Cursor() {
     <div
       ref={dotRef}
       aria-hidden="true"
-      className="fixed left-0 top-0 z-[9000] flex h-[11px] min-w-[11px] items-center justify-center rounded-full bg-ac font-mono text-[11px] tracking-[0.04em] text-curtext opacity-0 pointer-events-none whitespace-nowrap will-change-transform"
+      className="fixed left-0 top-0 z-[9000] flex h-[14px] min-w-[14px] items-center justify-center rounded-full bg-ac font-mono text-[14px] tracking-[0.04em] text-curtext opacity-0 pointer-events-none whitespace-nowrap will-change-transform"
       style={{
         transform: "translate(-100px,-100px)",
         transition:

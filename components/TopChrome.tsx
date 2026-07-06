@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ThemeControls from "@/components/ThemeControls";
 
 const PAD = "px-[clamp(28px,5vw,56px)] py-[26px]";
 
@@ -21,17 +22,22 @@ export default function TopChrome({
           className={`fixed left-0 top-0 z-[60] font-mono leading-[1.55] no-underline ${PAD}`}
         >
           <div className="text-[13px] tracking-[0.04em] text-fs">
-            Alex Mercer
+            Paritosh Patil
           </div>
           <div className="text-[12px] text-fd">software engineer · designer</div>
         </Link>
-        <Link
-          href="/"
-          data-cursor-label="Back ↗"
-          className={`fixed right-0 top-0 z-[60] font-mono text-[12px] tracking-[0.04em] text-fd no-underline ${PAD}`}
+        <div
+          className={`pointer-events-none fixed right-0 top-0 z-[60] flex items-center gap-[clamp(16px,3vw,28px)] ${PAD}`}
         >
-          ← back to index
-        </Link>
+          <ThemeControls />
+          <Link
+            href="/"
+            data-cursor-label="Back ↗"
+            className="pointer-events-auto font-mono text-[12px] tracking-[0.04em] text-fd no-underline"
+          >
+            ← back to index
+          </Link>
+        </div>
       </>
     );
   }
@@ -46,14 +52,17 @@ export default function TopChrome({
       <div
         className={`pointer-events-none fixed left-0 top-0 z-[60] font-mono leading-[1.55] ${PAD}`}
       >
-        <div className="text-[13px] tracking-[0.04em] text-fs">Alex Mercer</div>
+        <div className="text-[13px] tracking-[0.04em] text-fs">Paritosh Patil</div>
         <div className="text-[12px] text-fd">software engineer · designer</div>
       </div>
       <div
-        className={`pointer-events-none fixed right-0 top-0 z-[60] text-right font-mono text-[12px] leading-[1.55] text-fd ${PAD}`}
+        className={`pointer-events-none fixed right-0 top-0 z-[60] flex items-center gap-[clamp(16px,3vw,28px)] ${PAD}`}
       >
-        <div>available for work</div>
-        <div>Melbourne — 2026</div>
+        <ThemeControls />
+        <div className="text-right font-mono text-[12px] leading-[1.55] text-fd">
+          <div>available for work</div>
+          <div>Melbourne — 2026</div>
+        </div>
       </div>
     </>
   );
