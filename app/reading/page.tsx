@@ -1,4 +1,5 @@
 import BottomNav from "@/components/BottomNav";
+import Reveal from "@/components/Reveal";
 import SectionHeader from "@/components/SectionHeader";
 import TopChrome from "@/components/TopChrome";
 import { currentlyReading, recentlyFinished, type Book } from "@/data/content";
@@ -13,9 +14,10 @@ function Shelf({ heading, books }: { heading: string; books: Book[] }) {
       <div className="mb-5 font-mono text-[11px] tracking-[0.2em] text-ff">
         {heading}
       </div>
-      {books.map((book) => (
-        <div
+      {books.map((book, i) => (
+        <Reveal
           key={book.title}
+          delay={Math.min(i, 6) * 50}
           className="flex items-baseline justify-between border-b border-ls py-4"
         >
           <div>
@@ -23,7 +25,7 @@ function Shelf({ heading, books }: { heading: string; books: Book[] }) {
             <div className="mt-[3px] text-[13px] text-ft">{book.author}</div>
           </div>
           <div className="font-mono text-[12px] text-fd">{book.year}</div>
-        </div>
+        </Reveal>
       ))}
     </div>
   );
