@@ -40,6 +40,22 @@ function applyAccent(hex: string) {
   root.style.setProperty("--curtext", contrast(hex));
 }
 
+/** Run a DOM mutation inside a document cross-fade when supported and
+ *  motion is allowed; otherwise apply it instantly. */
+function withViewTransition(mutate: () => void) {
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const start = (
+    document as Document & {
+      startViewTransition?: (cb: () => void) => unknown;
+    }
+  ).startViewTransition;
+  if (reduce || typeof start !== "function") {
+    mutate();
+    return;
+  }
+  start.call(document, mutate);
+}
+
 /**
  * Inline "tweaks" control — flips the palette (dark / warm) and picks the
  * accent. Both write straight to the CSS variables on <html> (and to
@@ -71,14 +87,14 @@ export default function ThemeControls() {
   const toggleTheme = () => {
     const next: Theme = theme === "dark" ? "warm" : "dark";
     setTheme(next);
-    applyTheme(next);
     localStorage.setItem("theme", next);
+    withViewTransition(() => applyTheme(next));
   };
 
   const pickAccent = (hex: string) => {
     setAccent(hex);
-    applyAccent(hex);
     localStorage.setItem("accent", hex);
+    withViewTransition(() => applyAccent(hex));
   };
 
   return (

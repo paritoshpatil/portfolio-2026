@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 // Matches the CSS default `--ac` so the first (SSR) paint agrees with the
 // pre-paint script before the effect reads the live value.
 const DEFAULT_ACCENT = "#FF4D00";
+const SHADER_SPEED = 0.12; // animated; forced to 0 under prefers-reduced-motion
 
 /**
  * Hero dither field. Its foreground colour tracks the selected accent
@@ -16,6 +17,7 @@ const DEFAULT_ACCENT = "#FF4D00";
  */
 export default function PaperDither({ className }: { className?: string }) {
   const [colorFront, setColorFront] = useState(DEFAULT_ACCENT);
+  const [speed, setSpeed] = useState(SHADER_SPEED);
 
   useEffect(() => {
     const read = () => {
@@ -34,6 +36,15 @@ export default function PaperDither({ className }: { className?: string }) {
     return () => mo.disconnect();
   }, []);
 
+  // reduced-motion: freeze the shader (keep the frame, drop the motion)
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const apply = () => setSpeed(mq.matches ? 0 : SHADER_SPEED);
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
+
   return (
     <Dithering
       className={className}
@@ -42,7 +53,7 @@ export default function PaperDither({ className }: { className?: string }) {
       shape="warp"
       type="2x2"
       size={2.2}
-      speed={0.12}
+      speed={speed}
       scale={1.52}
       offsetX={0.54}
       offsetY={0.86}

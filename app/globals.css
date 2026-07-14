@@ -36,6 +36,12 @@
   --dither-floor: 0.6; /* 0 – 1: how dim the scarce dots fade to (lower = */
   /*        stronger light→dark gradient across the field) */
 
+  /* motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1); /* strong ease-out — the site's one curve */
+  --dur-fade: 180ms; /* opacity / text fades          */
+  --dur-morph: 240ms; /* cursor size / label morph     */
+  --dur-reveal: 800ms; /* scroll-in reveal              */
+
   color-scheme: dark;
 }
 
@@ -149,8 +155,8 @@ html::-webkit-scrollbar {
 .reveal {
   opacity: 0;
   transform: translateY(24px);
-  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity var(--dur-reveal) var(--ease-out),
+    transform var(--dur-reveal) var(--ease-out);
   will-change: opacity, transform;
 }
 .reveal[data-shown="1"] {
@@ -176,5 +182,20 @@ html::-webkit-scrollbar {
   body[data-custom-cursor="on"] *::before,
   body[data-custom-cursor="on"] *::after {
     cursor: none !important;
+  }
+}
+
+/* Theme / accent switch cross-fade (View Transitions API). Applied by
+   ThemeControls via document.startViewTransition; the whole document
+   cross-fades between palettes instead of hard-cutting. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 320ms;
+  animation-timing-function: var(--ease-out, cubic-bezier(0.22, 1, 0.36, 1));
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
   }
 }

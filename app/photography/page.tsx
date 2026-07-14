@@ -1,4 +1,5 @@
 import BottomNav from "@/components/BottomNav";
+import Reveal from "@/components/Reveal";
 import SectionHeader from "@/components/SectionHeader";
 import Tile from "@/components/Tile";
 import TopChrome from "@/components/TopChrome";
@@ -25,12 +26,14 @@ export default function Photography() {
 
         {/* masonry via CSS columns */}
         <div className="[column-count:1] [column-gap:24px] sm:[column-count:2] lg:[column-count:3]">
-          {photos.map((photo) => (
-            <Tile
+          {photos.map((photo, i) => (
+            <Reveal
               key={photo.label}
-              label={photo.label}
+              delay={(i % 3) * 60}
               className={`mb-6 block break-inside-avoid ${photo.heightClass}`}
-            />
+            >
+              <Tile label={photo.label} className="block h-full w-full" />
+            </Reveal>
           ))}
         </div>
       </div>

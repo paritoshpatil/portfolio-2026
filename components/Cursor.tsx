@@ -130,7 +130,7 @@ export default function Cursor() {
       style={{
         transform: "translate(-100px,-100px)",
         transition:
-          "height .24s cubic-bezier(.22,1,.36,1),min-width .24s cubic-bezier(.22,1,.36,1),padding .24s cubic-bezier(.22,1,.36,1),background .25s,opacity .2s",
+          "height var(--dur-morph) var(--ease-out),min-width var(--dur-morph) var(--ease-out),padding var(--dur-morph) var(--ease-out),background var(--dur-morph),opacity var(--dur-fade)",
       }}
     >
       <span
@@ -138,7 +138,7 @@ export default function Cursor() {
         className="max-w-0 overflow-hidden opacity-0"
         style={{
           transition:
-            "max-width .28s cubic-bezier(.22,1,.36,1),opacity .18s",
+            "max-width var(--dur-morph) var(--ease-out),opacity var(--dur-fade)",
         }}
       />
     </div>
